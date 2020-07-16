@@ -8,12 +8,17 @@ call print_newline
 mov bx, GOODBYE_STRING
 call print_string
 
+call print_newline
+
+mov dx, 0x123A
+call print_hex_data
+
 
 ;putting in an infinite loop for persistence
 jmp $
 
 ;inlcuding files
-%include "print_string.asm"
+%include "printing.asm"
 
 ;data
 HELLO_STRING:
