@@ -14,7 +14,7 @@ gdt_code:
 
     dw 0xffff    ;segment length mltiplier-ish - limit - (bits 0-15)
     dw 0x0       ;Base address (bits 0-15)
-    dw 0x0       ;Base address (bits 16-23)
+    db 0x0       ;Base address (bits 16-23)
     db 10011010b ;1st flags, type flags
     db 11001111b ;2nd flags, limit - (bits 16-19)
     db 0x0       ;Base address (bits 24-31) 
@@ -24,7 +24,7 @@ gdt_data:
     ;type flags - code:0, expand down:0, writable: 1, accessed:0 >0010
     dw 0xffff
     dw 0x0
-    dw 0x0
+    db 0x0
     db 10010010b ;1st flags, type flags
     db 11001111b
     db 0x0
