@@ -1,0 +1,1 @@
+gcc -ffreestanding -m32 -fno-pic -c kernel.c -o kernel.o

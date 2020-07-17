@@ -1,0 +1,1 @@
+ld -m elf_i386 -o kernel.bin -Ttext 0x1000 --oformat binary enter_kernel.o kernel.o

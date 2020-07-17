@@ -1,3 +1,5 @@
+;data is loaded to es:bx
+;bx will have to be set to the position of the kernel offset in the calling function
 disk_load:
     ;parameter: dh - number of sectors(512 bytes) to read
     pusha ;push all existing registers to the stack to preserve them
