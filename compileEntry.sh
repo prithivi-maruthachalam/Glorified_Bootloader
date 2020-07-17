@@ -1,1 +1,0 @@
-nasm enter_kernel.asm -f elf -o enter_kernel.o

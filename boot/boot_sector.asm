@@ -20,11 +20,11 @@ call switch_to_pm
 jmp $ ;hopefully, never executed
 
 ;inlcuding files
-%include "printing.asm"
-%include "32bit-gdt.asm"
-%include "32bit-printing.asm"
-%include "switching_to_32bit.asm"
-%include "disk_access.asm"
+%include "boot/printing.asm"
+%include "boot/32bit-gdt.asm"
+%include "boot/32bit-printing.asm"
+%include "boot/switching_to_32bit.asm"
+%include "boot/disk_access.asm"
 
 [bits 16]
 load_kernel: ;the function to perform 16 bit operations to load kernel code from disk
