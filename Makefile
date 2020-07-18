@@ -1,4 +1,4 @@
-C_SOURCES = $(wildcard kernel/*.c drivers/*.h)
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c)
 HEADERS = $(wildcard kernel/*.h drivers/*.h)
 OBJ = ${C_SOURCES:.c=.o}
 
@@ -21,7 +21,7 @@ kernel.bin: kernel/enter_kernel.o ${OBJ}
 %.o: %.asm
 	nasm $< -f elf -o $@
 
-%.o: %.c ${HEADERS}#temporary headers for simplicity
+%.o: %.c ${HEADERS}#gcc doesn't meed the headers as parameters, but they're a requirement for compilation
 	gcc ${CFLAGS} -ffreestanding -m32 -fno-pic -c $< -o $@
 
 
