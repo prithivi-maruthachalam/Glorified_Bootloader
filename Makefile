@@ -35,5 +35,5 @@ kernel.elf: kernel/enter_kernel.o ${OBJ}
 
 
 debug: kernel.elf osImage.bin
-	qemu-system-i386 -s -S osImage.bin &
-	gdb -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"
+	qemu-system-x86_64 -s -S osImage.bin &
+	gdb -ex "set architecture i386:x86-64:intel" -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"
