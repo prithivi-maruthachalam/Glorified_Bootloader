@@ -25,7 +25,7 @@ kernel.bin: kernel/enter_kernel.o ${OBJ}
 	gcc ${CFLAGS} -ffreestanding -m32 -fno-pic -c $< -o $@
 
 
-.PHONY: clean debug
+.PHONY: clean debug run
 clean:
 	rm -f *.bin *.o *.elf
 	rm -rf kernel/*.o boot/*.bin drivers/*.o  
@@ -33,7 +33,9 @@ clean:
 kernel.elf: kernel/enter_kernel.o ${OBJ}
 	ld -m elf_i386 -o $@ -Ttext 0x1000 $^
 
+run: osImage.bin
+	qemu-system-i386 -fda osImage.bin
 
 debug: kernel.elf osImage.bin
-	qemu-system-x86_64 -s -S osImage.bin &
+	qemu-system-i386 -s -S -fda osImage.bin &
 	gdb -ex "set architecture i386:x86-64:intel" -ex "target remote localhost:1234" -ex "symbol-file kernel.elf"

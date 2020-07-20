@@ -3,7 +3,7 @@
 void main(){
     kclear_screen();
     char x[] = "fgfdgf\n";
-    char y[] = "ioioioi";
     kprint(x);
+    char y[] = "What?atatatatatata";
     kprint(y);
 }

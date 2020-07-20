@@ -33,7 +33,7 @@ load_kernel: ;the function to perform 16 bit operations to load kernel code from
     call print_newline
 
     mov bx, KERNEL_OFFSET ;es:bx is where the data is loaded into
-    mov dh, 2 ;number of sectors to read
+    mov dh, 20 ;number of sectors to read
     mov dl, [BOOT_DRIVE]
     call disk_load
     ret
