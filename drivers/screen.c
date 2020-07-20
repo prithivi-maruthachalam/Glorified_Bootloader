@@ -1,5 +1,6 @@
 #include "ports.h"
 #include "screen.h"
+#include "../kernel/utils.h"
 
 //Declaration for private functions
 int get_cursor_offset(); //gets the current position of the cursor in video memory
@@ -11,6 +12,8 @@ int get_offset_row(int offset);
 int get_offset_col(int offset);
 
 int print_char(char c, int row, int col, char attr); //attr describes the color
+
+int scroll_handling(int offset); //takes care of all vertical scrolling
 
 /*public functions declared in screen.h*/
 void kprint_at(char *text, int row, int col){
@@ -77,8 +80,31 @@ int print_char(char c, int row, int col, char attr){
         vid_mem[offset+1] = attr;
         offset += 2;
     }
+    //offset is incremented before proceeding, so this is the offset for the next operation
+    offset = scroll_handling(offset);
 
     set_cursor_offset(offset);
+    return offset;
+}
+
+int scroll_handling(int offset){
+    //check if offset is greater than screen size
+    if(offset >= MAX_COLS * MAX_ROWS * 2){
+        int i;
+        for (i = 0; i < MAX_ROWS; i++){
+            mem_copy((char *)(VIDEO_ADDRESS + get_offset(i,0)), 
+                (char *)(VIDEO_ADDRESS + get_offset(i-1,0)), MAX_COLS*2);
+        }
+
+        //empty last line
+        char *last = (char *)(VIDEO_ADDRESS + get_offset(MAX_ROWS-1,0));
+        for(i = 0;i < MAX_COLS;i++){
+            last[i] = ' ';
+        }
+        
+        offset -= 2 * MAX_COLS;
+    }
+
     return offset;
 }
 
