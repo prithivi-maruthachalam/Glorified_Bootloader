@@ -70,7 +70,7 @@ int print_char(char c, int row, int col, char attr){
     }
 
     if(c == '\n'){
-        row = get_cursor_offset(offset);
+        row = get_offset_row(offset);
         offset = get_offset(row+1,0);
     } else {
         vid_mem[offset] = c;

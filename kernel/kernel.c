@@ -2,6 +2,8 @@
 
 void main(){
     kclear_screen();
-    char x[] = "fgfdgdfdf";
-    kprint_at(x, 1, 6);
+    char x[] = "fgfdgf\n";
+    char y[] = "ioioioi";
+    kprint(x);
+    kprint(y);
 }
