@@ -1,4 +1,5 @@
 #include "utils.h"
+#include <stdio.h>
 
 void mem_copy(char *from, char *to, int number){
     int i;
@@ -14,17 +15,16 @@ void int_to_ascii(int num, char str[]){
         str[i++] = num%10 + '0';
     } while((num/=10) > 0);
 
-    str[i] = '\0';
-/*
-    //reverse
-    char temp;
-    int j;
-    for(j=0;j<i;j++,i--){
-        temp = str[j];
-        str[j] = str[i];
-        str[i] = str[j];
-    }
 
-    str[j] = '\0';
-*/
+    //reverse
+    int j=0;
+    i--;
+    do{
+        char temp;
+        temp = str[i];
+        str[i--] = str[j];
+        str[j++] = temp;
+    } while((i-j) > 1);
+    str[++j] = '\0';
+
 }
