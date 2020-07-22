@@ -1,5 +1,5 @@
 #include "utils.h"
-#include <stdio.h>
+#include "../cpu/dtypes.h"
 
 void mem_copy(char *from, char *to, int number){
     int i;
@@ -8,9 +8,17 @@ void mem_copy(char *from, char *to, int number){
     }
 }
 
+void memory_set(u8 *dest, u8 val, u32 len) {
+    u8 *temp = (u8 *)dest;
+    for ( ; len != 0; len--) *temp++ = val;
+}
+
 void int_to_ascii(int num, char *str){
     int i;
     i = 0;
+    if(num < 0){
+        num = (-num);
+    }
     do{
         str[i++] = num%10 + '0';
     } while((num/=10) > 0);
