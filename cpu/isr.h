@@ -3,6 +3,14 @@
 
 #include "dtypes.h"
 
+#define masterPIC_base 0x20
+#define slavePIC_base 0xA0
+#define PIC_master_cmd masterPIC_base
+#define PIC_master_data (masterPIC_base+1)
+#define PIC_slave_cmd slavePIC_base
+#define PIC_slave_data (slavePIC_base+1)
+#define PIC_EOI 0x20
+
 extern void isr0();
 extern void isr1();
 extern void isr2();
@@ -36,16 +44,57 @@ extern void isr29();
 extern void isr30();
 extern void isr31();
 
+/* IRQ definitions */
+extern void irq0();
+extern void irq1();
+extern void irq2();
+extern void irq3();
+extern void irq4();
+extern void irq5();
+extern void irq6();
+extern void irq7();
+extern void irq8();
+extern void irq9();
+extern void irq10();
+extern void irq11();
+extern void irq12();
+extern void irq13();
+extern void irq14();
+extern void irq15();
+
+#define IRQ0 32
+#define IRQ1 33
+#define IRQ2 34
+#define IRQ3 35
+#define IRQ4 36
+#define IRQ5 37
+#define IRQ6 38
+#define IRQ7 39
+#define IRQ8 40
+#define IRQ9 41
+#define IRQ10 42
+#define IRQ11 43
+#define IRQ12 44
+#define IRQ13 45
+#define IRQ14 46
+#define IRQ15 47
+
 
 //the data structure the processor uses to give us the exception info - kinda
 typedef struct {
    u32 ds; /* Data segment selector */
-   u32 edi, esi, ebp, esp, ebx, edx, ecx, eax; /* Pushed by pusha. */
+   u32 edi, esi, ebp, esp, ebx, edx, ecx, eax; /* Pushed by pusha.--info about cpu state */
    u32 int_no, err_code; /* Interrupt number and error code (if applicable) */
    u32 eip, cs, eflags, useresp, ss; /* Pushed by the processor automatically */
 } registers_table;
 
+//IRQ is a pointer to registers_table dtype
+typedef void (*isr_t)(registers_table);
+
 void isr_install();
 void isr_handler(registers_table r);
+void register_interrupt_handler(u8 n, isr_t handler);
+void irq_handler(registers_table r);
+
 
 #endif
