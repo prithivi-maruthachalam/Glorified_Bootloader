@@ -1,5 +1,5 @@
-C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c)
-HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h)
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c cpu/*.c libc/*.c)
+HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.c)
 OBJ = ${C_SOURCES:.c=.o cpu/interrupts.o}
 
 #-g Debugging symbols in gcc
@@ -15,7 +15,7 @@ osImage.bin: boot/boot_sector.bin kernel.bin
 %.bin: %.asm
 	nasm -f bin $^ -o $@
 
-kernel.bin: kernel/enter_kernel.o ${OBJ}
+kernel.bin: boot/enter_kernel.o ${OBJ}
 	ld -m elf_i386 -o $@ -Ttext 0x1000 --oformat binary $^
 
 %.o: %.asm

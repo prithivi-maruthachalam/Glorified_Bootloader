@@ -1,6 +1,6 @@
-#include "ports.h"
+#include "../cpu/ports.h"
 #include "screen.h"
-#include "../kernel/utils.h"
+#include "../libc/utils.h"
 
 //Declaration for private functions
 int get_cursor_offset(); //gets the current position of the cursor in video memory

@@ -1,7 +1,7 @@
 //code for setting up idt
 
 #include "idt.h"
-#include "../kernel/utils.h"
+#include "../libc/utils.h"
 
 idt_gate_type idt[IDT_ENTRIES];
 idt_register_type idt_reg;

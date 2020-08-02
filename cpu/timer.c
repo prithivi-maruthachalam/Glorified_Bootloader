@@ -1,8 +1,8 @@
 #include "timer.h"
 #include "../drivers/screen.h"
-#include "../kernel/utils.h"
+#include "../libc/utils.h"
 #include "isr.h"
-#include "../drivers/ports.h"
+#include "ports.h"
 
 //the variable that the interrupt will update
 u32 tick = 0;
