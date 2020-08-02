@@ -1,20 +1,17 @@
 #include "timer.h"
 #include "../drivers/screen.h"
-#include "../libc/utils.h"
 #include "isr.h"
 #include "ports.h"
+#include "../libc/kstrings.h"
 
 //the variable that the interrupt will update
 u32 tick = 0;
 
 static void timer_callback(registers_table regs){
     tick++;
-    kprint("Tick: ");
 
     char tick_ASCII[256];
     int_to_ascii(tick,tick_ASCII);
-    kprint(tick_ASCII);
-    kprint("\n");
 }
 
 void init_timer(u32 frequency){

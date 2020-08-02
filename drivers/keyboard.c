@@ -2,7 +2,7 @@
 #include "../cpu/isr.h"
 #include "../cpu/ports.h"
 #include "screen.h"
-#include "../libc/utils.h"
+#include "../libc/kstrings.h"
 
 void print_letter(u8 scancode);
 

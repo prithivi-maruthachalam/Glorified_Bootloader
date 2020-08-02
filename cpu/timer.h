@@ -1,7 +1,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include "../libc/utils.h"
+#include "dtypes.h"
 
 void init_timer(u32 frequency);
 

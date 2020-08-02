@@ -28,7 +28,7 @@ kernel.bin: boot/enter_kernel.o ${OBJ}
 .PHONY: clean debug run
 clean:
 	rm -f *.bin *.o *.elf
-	rm -rf kernel/*.o boot/*.bin drivers/*.o cpu/*.o
+	rm -rf kernel/*.o boot/*.bin drivers/*.o cpu/*.o libc/*.o
 
 kernel.elf: kernel/enter_kernel.o ${OBJ}
 	ld -m elf_i386 -o $@ -Ttext 0x1000 $^

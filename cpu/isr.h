@@ -92,6 +92,8 @@ typedef struct {
 typedef void (*isr_t)(registers_table);
 
 void isr_install();
+void irq_install();
+
 void isr_handler(registers_table r);
 void register_interrupt_handler(u8 n, isr_t handler);
 void irq_handler(registers_table r);

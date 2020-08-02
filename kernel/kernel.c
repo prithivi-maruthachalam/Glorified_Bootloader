@@ -6,9 +6,8 @@
 void main(){
     kclear_screen();
     isr_install(); //to set up the interrupt descriptor table and the handlers
-    kprint("Installed interrupts\n");
+    kprint("Installed software interrupts\n");
 
-    asm volatile("sti");
-    //init_timer(50);
-    init_keyboard();
+    irq_install();
+    kprint("Installed hardware interrupts\n");
 }
