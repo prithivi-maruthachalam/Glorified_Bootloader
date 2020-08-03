@@ -19,6 +19,8 @@ unsigned short port_word_in(unsigned short port){
     //ax is used because word is longer than a byte
     unsigned short result;
     __asm__("in %%dx, %%ax": "=a"(result) : "d"(port));
+
+    return result;
 }
 
 void port_word_out(unsigned short port, unsigned short data){

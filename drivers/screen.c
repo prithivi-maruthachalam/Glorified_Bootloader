@@ -1,5 +1,6 @@
 #include "../cpu/ports.h"
 #include "screen.h"
+#include "../libc/mem.h"
 
 //Declaration for private functions
 int get_cursor_offset(); //gets the current position of the cursor in video memory
@@ -49,6 +50,13 @@ void kclear_screen(){
     set_cursor_offset(get_offset(0,0));
 }
 
+void kprint_backspace(){
+    int last_offset = get_cursor_offset() - 2;
+    int row = get_offset_row(last_offset);
+    int col = get_offset_col(last_offset);
+    print_char(0x08,row,col, WHITE_ON_BLACK);
+}
+
 /*private functions*/
 int print_char(char c, int row, int col, char attr){
     unsigned char *vid_mem = (unsigned char*) VIDEO_ADDRESS;
@@ -71,10 +79,14 @@ int print_char(char c, int row, int col, char attr){
         offset = get_cursor_offset();
     }
 
+    //special case handling
     if(c == '\n'){
         row = get_offset_row(offset);
         offset = get_offset(row+1,0);
-    } else {
+    } else if(c == 0x08){
+        vid_mem[offset] = ' ';
+        vid_mem[offset+1] = attr;
+    }else {
         vid_mem[offset] = c;
         vid_mem[offset+1] = attr;
         offset += 2;

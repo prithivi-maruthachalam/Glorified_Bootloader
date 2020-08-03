@@ -3,12 +3,15 @@
 #include "isr.h"
 #include "ports.h"
 #include "../libc/kstrings.h"
+#include "../libc/function.h"
 
 //the variable that the interrupt will update
 u32 tick = 0;
 
 static void timer_callback(registers_table regs){
     tick++;
+
+    UNUSED(regs);
 
     char tick_ASCII[256];
     int_to_ascii(tick,tick_ASCII);

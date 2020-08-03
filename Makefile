@@ -3,7 +3,7 @@ HEADERS = $(wildcard kernel/*.h drivers/*.h cpu/*.h libc/*.c)
 OBJ = ${C_SOURCES:.c=.o cpu/interrupts.o}
 
 #-g Debugging symbols in gcc
-CFLAGS = -g
+CFLAGS = -g -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nodefaultlibs -Wall -Wextra -Werror
 
 default: osImage.bin
 

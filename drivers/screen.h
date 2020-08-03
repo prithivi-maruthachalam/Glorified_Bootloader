@@ -21,5 +21,6 @@
 void kclear_screen();
 void kprint_at(char *text, int row, int col);
 void kprint(char *text);
+void kprint_backspace();
 
 #endif
