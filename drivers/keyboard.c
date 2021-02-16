@@ -26,6 +26,7 @@ const char sc_ascii[] = { '?', '?', '1', '2', '3', '4', '5', '6',
 static char key_buffer[256];
 
 static void keyboard_callback(registers_table regs){
+    //PIC leaves the scancode here - PIC think PIC do
     u8 scancode = port_byte_in(0x60);
 
     if(scancode > SC_MAX){
@@ -40,6 +41,7 @@ static void keyboard_callback(registers_table regs){
         key_buffer[0] = '\0';
     } else {
         char letter = sc_ascii[(int)scancode];
+        //can't just append because letter needs to be reused
         char str[2] = {letter, '\0'};
         append(key_buffer, letter);
         kprint(str);

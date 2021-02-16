@@ -1,7 +1,12 @@
 [org 0x7c00] ;offeset from the bootloader's current position in memory
-;calling this as a function is what gives control to the kernel
-KERNEL_OFFSET equ 0x1000 ;position the kernel exists at
+;calling this as a function is what gives control to the second stage bootloader(which is the kernel for now)
 
+;pointers to kernel and second stages addresses
+;should be changed to an actual second stage which then calsl the kernel
+SECOND_STAGE_BOOTLOADER_OFFSET equ 0x1000 ;position the kernel exists at 
+
+
+;initialisation for the first stage bootloader ----------------------------------
 mov [BOOT_DRIVE],dl ;boot drive is set in dl by the BIOS
 
 ;setting up stack
@@ -13,11 +18,14 @@ mov bx, GREETING_STRING_REAL_MODE
 call print_string
 call print_newline
 
-call load_kernel
+
+call load_kernel;to be changed to calling second stage kernel
 call switch_to_pm
 
 ;putting in an infinite loop for persistence
 jmp $ ;hopefully, never executed
+
+;---------------------------------------------------------------------------------
 
 ;inlcuding files
 %include "boot/printing.asm"
@@ -32,7 +40,7 @@ load_kernel: ;the function to perform 16 bit operations to load kernel code from
     call print_string
     call print_newline
 
-    mov bx, KERNEL_OFFSET ;es:bx is where the data is loaded into
+    mov bx, SECOND_STAGE_BOOTLOADER_OFFSET ;es:bx is where the data is loaded into
     mov dh, 20 ;number of sectors to read
     mov dl, [BOOT_DRIVE]
     call disk_load
@@ -45,7 +53,8 @@ load_kernel: ;the function to perform 16 bit operations to load kernel code from
 BEGIN_PM:
     mov ebx, MSG_PM_ENTRY
     call pm_print_string
-    call KERNEL_OFFSET ;gives control to the main function of the kernel
+    
+    call SECOND_STAGE_BOOTLOADER_OFFSET ;gives control to the main function of the kernel
     jmp $
 
 

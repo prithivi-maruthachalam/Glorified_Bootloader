@@ -5,7 +5,7 @@
 #include "../libc/kstrings.h"
 
 void main(){
-    kclear_screen();
+    //kclear_screen();
     isr_install(); //to set up the interrupt descriptor table and the handlers
     kprint("Installed software interrupts\n");
 
