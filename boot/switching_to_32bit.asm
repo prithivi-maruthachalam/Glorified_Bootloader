@@ -1,4 +1,4 @@
-[bits 16] ;16-bit instructions to sitch to 32-bit protected mode
+[bits 16] ;16-bit instructions to switch to 32-bit protected mode
 switch_to_pm:
     cli ;disable interrupts
     lgdt [gdt_descriptor] ;load gdt

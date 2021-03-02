@@ -1,7 +1,8 @@
-# PrOs
-PrOS is an experimental project. It is being developed for the purposes of learning and bragging.
+This is an experimental bootloader set up for 2 stages, but currently has only one stage.
+Interrupts(IDT and ISR) have been setup, there's a VGA driver and a keyboard driver.
 
+A driver of sorts for ports and a system timer have been set up.
 
-## Instructions (incomplete)
-To use PrOS
-- You need to have a virtualisation software installed. I recommend qemu on Linux. 
+A fairly minimal libc has also been built
+- Strings
+- Memory

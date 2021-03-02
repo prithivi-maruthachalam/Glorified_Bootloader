@@ -1,8 +1,10 @@
-[org 0x7c00] ;offeset from the bootloader's current position in memory
+[org 0x7c00] 
+;executed by defualt from the above adderss so this is used as offset for the folloing code
 ;calling this as a function is what gives control to the second stage bootloader(which is the kernel for now)
 
 ;pointers to kernel and second stages addresses
-;should be changed to an actual second stage which then calsl the kernel
+;should be changed to an actual second stage which then calls
+ the kernel
 SECOND_STAGE_BOOTLOADER_OFFSET equ 0x1000 ;position the kernel exists at 
 
 
