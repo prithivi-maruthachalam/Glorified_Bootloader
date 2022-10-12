@@ -3,8 +3,7 @@
 ;calling this as a function is what gives control to the second stage bootloader(which is the kernel for now)
 
 ;pointers to kernel and second stages addresses
-;should be changed to an actual second stage which then calls
- the kernel
+;should be changed to an actual second stage which then calls the kernel
 SECOND_STAGE_BOOTLOADER_OFFSET equ 0x1000 ;position the kernel exists at 
 
 

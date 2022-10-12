@@ -8,7 +8,8 @@
 
 isr_t interrupt_handlers[256];
 
-void isr_install(){
+void isr_install()
+{
     set_idt_gate(0, (u32)isr0);
     set_idt_gate(1, (u32)isr1);
     set_idt_gate(2, (u32)isr2);
@@ -44,20 +45,20 @@ void isr_install(){
 
     //to remap the PIC to 0x20 and 0x28
     //initialisation instruction
-    port_byte_out(PIC_master_cmd,0x11);
-    port_byte_out(PIC_slave_cmd,0x11);
+    port_byte_out(PIC_master_cmd, 0x11);
+    port_byte_out(PIC_slave_cmd, 0x11);
     //new offsets to handle using of same memory spaces by IRQs and IDTs
-    port_byte_out(PIC_master_data,0x20);
-    port_byte_out(PIC_slave_data,0x28);
+    port_byte_out(PIC_master_data, 0x20);
+    port_byte_out(PIC_slave_data, 0x28);
     //give them their roles 4-master 2-slave
-    port_byte_out(PIC_master_data,0x04);
-    port_byte_out(PIC_slave_data,0x02);
+    port_byte_out(PIC_master_data, 0x04);
+    port_byte_out(PIC_slave_data, 0x02);
     //set to 8086/8088 mode (virtual real mode) - real mode apps in protected mode
-    port_byte_out(PIC_master_data,0x01);
-    port_byte_out(PIC_slave_data,0x01);
+    port_byte_out(PIC_master_data, 0x01);
+    port_byte_out(PIC_slave_data, 0x01);
     //masks
-    port_byte_out(PIC_master_data,0x0);
-    port_byte_out(PIC_slave_data,0x0);
+    port_byte_out(PIC_master_data, 0x0);
+    port_byte_out(PIC_slave_data, 0x0);
 
     set_idt_gate(32, (u32)irq0);
     set_idt_gate(33, (u32)irq1);
@@ -114,14 +115,15 @@ char *exception_messages[] = {
     "Reserved",
     "Reserved",
     "Reserved",
-    "Reserved"
-};
+    "Reserved"};
 
-void register_interrupt_handler(u8 n, isr_t handler){
+void register_interrupt_handler(u8 n, isr_t handler)
+{
     interrupt_handlers[n] = handler;
 }
 
-void isr_handler(registers_table r) {
+void isr_handler(registers_table r)
+{
     kprint("received interrupt: ");
     char s[3];
     int_to_ascii(r.int_no, s);
@@ -131,22 +133,27 @@ void isr_handler(registers_table r) {
     kprint("\n\n");
 }
 
-void irq_handler(registers_table r){
+void irq_handler(registers_table r)
+{
     //send EOI to both PICs
-    if(r.int_no >= 40){
-        port_byte_out(PIC_slave_cmd,PIC_EOI);
+    if (r.int_no >= 40)
+    {
+        port_byte_out(PIC_slave_cmd, PIC_EOI);
     }
-    port_byte_out(PIC_master_cmd,PIC_EOI);
+    port_byte_out(PIC_master_cmd, PIC_EOI);
 
+    // kprint("keyboard");
 
-    //handle them
-    if(interrupt_handlers[r.int_no] != 0){
+    // //handle them
+    if (interrupt_handlers[r.int_no] != 0)
+    {
         isr_t handler = interrupt_handlers[r.int_no];
         handler(r);
     }
 }
 
-void irq_install(){
+void irq_install()
+{
     asm volatile("sti");
     init_timer(50);
     init_keyboard();
